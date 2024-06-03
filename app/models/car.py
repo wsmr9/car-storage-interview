@@ -3,8 +3,9 @@ from app import db
 
 class Car(db.Model):
     """
-    Represents a car in the automotive inventory system.
-
+    Represents a car in the automotive inventory system. This model defines the structure
+    and expected data for each car entry in the database.
+    
     Attributes:
         id (int): The primary key for the Car.
         brand (str): The brand of the car.
@@ -14,6 +15,7 @@ class Car(db.Model):
         created_at (datetime): The timestamp when the car record was created, set to current UTC time by default.
     """
     
+    # Database columns
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     brand = db.Column(db.String(50), nullable=False)
     model = db.Column(db.String(50), nullable=False)
@@ -23,9 +25,9 @@ class Car(db.Model):
 
     def __repr__(self):
         """
-        Provides a string representation of this Car instance, useful for debugging and logging.
+        Provides a string representation of this Car instance, primarily useful for debugging and logging.
         
         Returns:
-            str: A string indicating the brand, model, and year of the car.
+            str: A string that represents the car, formatted as '<Car [brand] [model] [year]>'.
         """
         return f'<Car {self.brand} {self.model} {self.year}>'

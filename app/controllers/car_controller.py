@@ -4,13 +4,14 @@ from app.models.car import Car
 
 def create_car():
     """
-    Create a new order with car from a JSON request.
+    Create a new car entry from a JSON request.
 
-    Processes a JSON payload to create an order and its associated items, computes total,
-    and commits the transaction to the database.
+    Extracts data from a JSON payload, creates a new Car object, commits it to the database,
+    and returns a JSON response with the new car's ID.
 
     Returns:
-        Response: JSON object with the message and created order ID, status code 201.
+        Response: JSON object containing the message and the newly created car's ID if successful, status code 201.
+                 JSON object containing error message if the creation fails, status code 400.
     """
     data = request.get_json()
     try:
@@ -29,10 +30,12 @@ def create_car():
 
 def get_cars():
     """
-    Retrieve all car from the database.
+    Retrieve all cars from the database.
+
+    Fetches all car records from the database and formats them into a JSON list.
 
     Returns:
-        Response: JSON list of all car.
+        Response: JSON list of all cars, each represented as a dictionary.
     """
     cars = db.session.query(Car).all()
     cars_data = [{
@@ -48,6 +51,12 @@ def get_cars():
 def get_car(car_id):
     """
     Retrieve a single car by its ID.
+
+    Attempts to find a car by its ID. If found, returns a JSON object with car details,
+    otherwise returns a 404 with an error message.
+
+    Returns:
+        Response: JSON object with car details if found, otherwise JSON object with an error message, status code 404.
     """
     car = db.session.query(Car).filter(Car.id == car_id).first()
     if car:
@@ -66,8 +75,14 @@ def get_car(car_id):
 def update_car(id):
     """
     Update a car record by its ID.
-    """
 
+    Fetches a car by ID and updates its details with provided JSON data, then commits the changes.
+    Returns a success message if updated, or a not-found message if no car matches the ID.
+
+    Returns:
+        Response: JSON object with success message if the car is updated, status code 200.
+                  JSON object with error message if no car is found, status code 404.
+    """
     data = request.get_json()
     car = db.session.query(Car).filter(Car.id == id).first()
     if car:
@@ -80,10 +95,16 @@ def update_car(id):
     else:
         return jsonify({'message': 'Car not found'}), 404
 
-
 def delete_car(id):
     """
     Delete a car record by its ID.
+
+    Attempts to find and delete a car by its ID. If successful, commits the change and returns a success message.
+    If the car is not found, returns a 404 error message.
+
+    Returns:
+        Response: JSON object with success message if deleted, status code 200.
+                  JSON object with error message if no car is found, status code 404.
     """
     car = db.session.query(Car).filter(Car.id == id).first()
     if car:
