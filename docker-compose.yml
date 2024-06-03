@@ -24,7 +24,7 @@ services:
 
   # Flask-based application service
   car-storage-app:
-    build: ./car-storage/  # Builds the Docker image from Dockerfile located in './car-storage/'.
+    build: .  # Builds the Docker image from Dockerfile located in '.'.
     ports:
       - "5000:5000"  # Exposing Flask's typical port 5000.
     environment:
