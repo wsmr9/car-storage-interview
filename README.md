@@ -57,7 +57,7 @@ Before launching the containers, create a Docker network to allow communication 
 Use Docker Compose to launch the services defined in your `docker-compose.yml`:
 
 ```bash
-    docker-compose up -d
+    docker-compose up -d --build
 ```
 
 This command will start the following services:
@@ -91,6 +91,21 @@ Verifying the Installation
 --------------------------
 
 To verify that your backend is set up correctly, navigate to the following URL, which will access the Car Storage Service and display the car:
+
+```bash
+    http://localhost:[PORT]/car
+```
+
+Replace `[PORT]` with the port number you configured in your `.env` file.
+
+**IF THE APPLICATION CONTAINER CAR ON PORT ESTABLISHED DID NOT RISE, PLEASE RUN THIS COMMAND AGAIN AND VERIFY**
+
+
+```bash
+    docker-compose up -d
+```
+
+THEN
 
 ```bash
     http://localhost:[PORT]/car
