@@ -1,3 +1,5 @@
+USE car;
+
 INSERT INTO public.car (brand, model, year, price, created_at)
 VALUES 
     ('Toyota', 'Corolla', 2020, 20000, NOW()),
