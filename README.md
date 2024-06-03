@@ -42,7 +42,16 @@ Create a directory within the root of the project to store PosgreSQL data:
     mkdir postgres_data_car
 ```
 
-### Step 4: Launch Docker Containers
+### Step 4: Create a Docker Network
+
+
+Before launching the containers, create a Docker network to allow communication between them:
+
+```bash
+    docker network create shared-network
+```
+
+### Step 5: Launch Docker Containers
 
 
 Use Docker Compose to launch the services defined in your `docker-compose.yml`:

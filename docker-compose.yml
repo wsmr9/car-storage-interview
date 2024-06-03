@@ -12,6 +12,8 @@ services:
       - "5432:5432"  # Exposing PostgreSQL default port on both host and container.
     volumes:
       - ./postgres_data_car:/var/lib/postgresql/data  # Persist database data on the host.
+    networks:
+      - shared-network
 
   # pgAdmin service, a web UI for managing PostgreSQL databases
   pgadmin:
@@ -21,6 +23,8 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}  # Default password for pgAdmin.
     ports:
       - "5050:80"  # Exposing pgAdmin on host port 5050 and container port 80.
+    networks:
+      - shared-network
 
   # Flask-based application service
   car-storage-app:
@@ -31,3 +35,9 @@ services:
       DATABASE_URL: ${DATABASE_URL}  # Database URL from environment variable.
     depends_on:
       - postgres_server  # Ensures PostgreSQL server starts before this application.
+    networks:
+      - shared-network
+      
+networks:
+  shared-network:
+    external: true
